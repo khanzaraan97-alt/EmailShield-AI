@@ -1,0 +1,43 @@
+services:
+  - type: web
+    name: emailshield-ai
+    env: python
+    region: oregon
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: python main.py
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: HOST
+        value: 0.0.0.0
+      - key: SECRET_KEY
+        generateValue: true
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: GEMINI_MODEL
+        value: gemini-2.5-flash
+      - key: TIDB_HOST
+        sync: false
+      - key: TIDB_PORT
+        value: 4000
+      - key: TIDB_USER
+        sync: false
+      - key: TIDB_PASSWORD
+        sync: false
+      - key: TIDB_DATABASE
+        value: emailshield
+      - key: TIDB_SSL_MODE
+        value: VERIFY_IDENTITY
+      - key: USE_SQLITE_FALLBACK
+        value: true
+      - key: RESEND_API_KEY
+        sync: false
+      - key: RESEND_FROM_EMAIL
+        value: onboarding@resend.dev
+      - key: STORE_EMAIL_BODY
+        value: false
+      - key: MAX_EMAIL_SIZE_BYTES
+        value: 51200
